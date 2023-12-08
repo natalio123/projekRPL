@@ -29,8 +29,8 @@ $result = $conn->query($query);
 <html>
 <head>
   <title>Dashboard Pelayan</title>
-  <link rel="stylesheet" href="/revisi-projectrpl/pelayan/style.css">
-  <link rel="icon" href="/revisi-projectrpl/image/img.jpg">
+  <link rel="stylesheet" href="pelayan/style.css">
+  <link rel="icon" href="image/img.jpg">
 </head>
 <body>
   <header>
