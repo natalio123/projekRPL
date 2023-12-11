@@ -6,6 +6,29 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
 }
+    // Koneksi ke database (ganti dengan detail koneksi Anda)
+$host = "localhost";
+$username = "root";
+$password = "";
+$db = "user_db";
+
+$conn = new mysqli($host, $username, $password, $db);
+
+// Periksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi Gagal: " . $conn->connect_error);
+}
+
+// Query untuk mendapatkan data reservasi
+$query = "SELECT * FROM reservasi_form";
+$result = $conn->query($query);
+// Ambil data reservasi ke dalam array
+$reservasiData = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $reservasiData[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +69,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
             <h2>Dashboard</h2>
 
             <div class="promo_card">
-                <h1>Welcome [nama] </h1>
+                <h1>Welcome <?php echo isset($_SESSION['user_name']) ? $_SESSION['username'] : 'Guest'; ?> </h1>
                 <span>Manajer WarongWarem</span>
             </div>
 
@@ -63,20 +86,17 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
                             <th>Jenis Meja</th>
                             <th>Status</th>
                         </tr>
-                        <tr>
-                            <td>01/01/2022</td>
-                            <td>19:00</td>
-                            <td>4</td>
-                            <td>Meja Tengah</td>
-                            <td>Dikonfirmasi</td>
-                        </tr>
-                        <tr>
-                            <td>02/01/2022</td>
-                            <td>20:30</td>
-                            <td>6</td>
-                            <td>Meja Sudut</td>
-                            <td>Menunggu Konfirmasi</td>
-                        </tr>
+                        <?php
+                        foreach ($reservasiData as $row) {
+                            echo "<tr>
+                                    <td>" . $row['tanggal'] . "</td>
+                                    <td>" . $row['waktu'] . "</td>
+                                    <td>" . $row['jumlah_orang'] . "</td>
+                                    <td>" . $row['jenis_meja'] . "</td>
+                                    <td>" . ($row['status'] ?? 'Tidak ada') . "</td>
+                                </tr>";
+                        }
+                        ?>
                     </table>
                 </div>
 
@@ -86,18 +106,16 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
                     </div>
                     <table>
                         <tr>
-                            <th>Nomor Meja</th>
+                            <th>Nama Pelanggan</th>
                             <th>Status</th>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Tersedia</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Tersedia</td>
-                        </tr>
-                        <!-- Tambahkan baris lain sesuai dengan data manajemen meja -->
+                        <?php
+                        foreach ($reservasiData as $row) {
+                            echo "<tr>
+                        <td>" . $row['nama'] . "</td>
+                        <td>" . ($row['status'] ?? 'Tidak ada') . "</td>
+                      </tr>";
+                    }
                     </table>
                 </div>
             </div>
