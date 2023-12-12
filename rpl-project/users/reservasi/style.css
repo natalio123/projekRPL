@@ -47,3 +47,16 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #e7e970;
 }
+.tombol {
+    background-color: rgb(103, 202, 45);
+    width: 60px;
+    height: 30px;
+    margin-left: 30px;
+    color: #f5fdff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 12%;
+  }
+  
+  .tombol:hover {
+    background-color: rgb(198, 21, 21);
+  }

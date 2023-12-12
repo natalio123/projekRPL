@@ -34,8 +34,8 @@ body {
   font-family: "Pompiere", cursive;
   font-size: 1.2rem;
   color: var(--text-clr);
-  background: url("/rpl-project/image/bg.jpg");
-  background-repeat:no-repeat;
+  background: url("/rpl-project/image/bg.jpg") no-repeat center center fixed;
+  background-size: cover;
   transition: background-color 1000ms;
 }
 
@@ -539,7 +539,7 @@ header {
   }
   .section-three {
     align-items: flex-start;
-    background: url(/loginPage/image/bg.jpg);
+    background: url("RPL-PROJECT/image/bg.jpg");
   }
 }
 

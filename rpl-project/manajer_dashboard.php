@@ -6,7 +6,8 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
 }
-    // Koneksi ke database (ganti dengan detail koneksi Anda)
+
+// Koneksi ke database (ganti dengan detail koneksi Anda)
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -29,17 +30,23 @@ if ($result->num_rows > 0) {
         $reservasiData[] = $row;
     }
 }
+
 ?>
 
+<?php
+header("Content-Type: text/html; charset=UTF-8");
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <title>Dashboard Manajer</title>
-    <link rel="stylesheet" href="/rpl-project/manajer/style.css" />
+    <link rel="stylesheet" href="manajer/style.css" />
     <link rel="icon" href="/rpl-project/image/img.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 </head>
+
 <body>
     <header class="header">
         <div class="logo">
@@ -58,27 +65,26 @@ if ($result->num_rows > 0) {
         <nav>
             <div class="side_navbar">
                 <span>Main Menu</span>
-                <a href="#" class="active">Dashboard</a>
-                <a href="#">Profile</a>
-                <a href="#">Laporan Reservasi</a>
-                <a href="#">Manajemen Meja</a>
+                <a href="manajer_dashboard.php" class="active">Dashboard</a>
+                <a href=" laporan_reservasi.php" class="active">Laporan Reservasi</a>
+                <a href="manejemen_meja.php" class="active">Manajemen Meja</a>
             </div>
         </nav>
 
         <div class="main-body">
             <h2>Dashboard</h2>
 
-            <div class="promo_card">
-                <h1>Welcome <?php echo isset($_SESSION['user_name']) ? $_SESSION['username'] : 'Guest'; ?> </h1>
+            <div class="promo_card" style="height: 125px; margin: 20px;">
+                <h1>Welcome </h1>
                 <span>Manajer WarongWarem</span>
             </div>
 
-            <div class="history_lists">
+            <div class=" history_lists">
                 <div class="list1">
-                    <div class="row">
+                    <div class="row" style="margin: 1rem 40px;">
                         <h4>Laporan Reservasi</h4>
                     </div>
-                    <table>
+                    <table style="margin: 0 40px;">
                         <tr>
                             <th>Tanggal</th>
                             <th>Waktu</th>
@@ -87,14 +93,19 @@ if ($result->num_rows > 0) {
                             <th>Status</th>
                         </tr>
                         <?php
+                        $counter = 0;
                         foreach ($reservasiData as $row) {
                             echo "<tr>
-                                    <td>" . $row['tanggal'] . "</td>
-                                    <td>" . $row['waktu'] . "</td>
-                                    <td>" . $row['jumlah_orang'] . "</td>
-                                    <td>" . $row['jenis_meja'] . "</td>
-                                    <td>" . ($row['status'] ?? 'Tidak ada') . "</td>
+                                <td>" . $row['tanggal'] . "</td>
+                                <td>" . $row['waktu'] . "</td>
+                                <td>" . $row['jumlah_orang'] . "</td>
+                                <td>" . $row['jenis_meja'] . "</t>
+                                <td>" . ($row['status'] ?? 'Belum Konfirmasi') . "</td>
                                 </tr>";
+                            $counter++;
+                            if ($counter >= 3) {
+                                break; // Hentikan iterasi setelah tiga baris
+                            }
                         }
                         ?>
                     </table>
@@ -110,12 +121,21 @@ if ($result->num_rows > 0) {
                             <th>Status</th>
                         </tr>
                         <?php
+                        $counter = 0;
                         foreach ($reservasiData as $row) {
                             echo "<tr>
-                        <td>" . $row['nama'] . "</td>
-                        <td>" . ($row['status'] ?? 'Tidak ada') . "</td>
-                      </tr>";
-                    }
+                                <td>" . $row['nama'] . "</td>
+                                <td>" . ($row['status'] ?? 'Belum Konfirmasi') . "</td>
+                                </tr>";
+                            $counter++;
+                            if ($counter >= 3) {
+                                break; // Hentikan iterasi setelah tiga baris
+                            }
+                        }
+
+                        //close koneksi
+                        $conn->close();
+                        ?>
                     </table>
                 </div>
             </div>
@@ -124,5 +144,5 @@ if ($result->num_rows > 0) {
 
     <script src="manajer/script.js"></script>
 </body>
-</html>
 
+</html>
