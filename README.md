@@ -1,9 +1,9 @@
 # projekRPL
-Tugas Akhir dari Kelompok 6 mengenai warongWarem Restaurant. 
-Natalio Tumuahi
-Matthew Rarung
-Marselino Bandule 
-Sisilia Sasilo
+**Tugas Akhir dari Kelompok 6 mengenai warongWarem Restaurant. <br>
+Natalio Tumuahi<br>
+Matthew Rarung<br>
+Marselino Bandule <br>
+Sisilia Sasilo<br>
 
 ## Langkah langkah aplikasi kami secara singkat
 1. Pelanggan, Pelayan, dan Manajer melakukan Sign Up serta melakukan login.
